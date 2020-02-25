@@ -11,9 +11,21 @@ import io.ktor.gson.*
 import io.ktor.features.*
 import com.fasterxml.jackson.databind.*
 import io.ktor.jackson.*
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+//fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+fun main(args: Array<String>) {
+    embeddedServer(Netty, 8080) {
+        routing {
+            get("/") {
+                call.respondText("Hello, world!", ContentType.Text.Html)
+            }
+        }
+    }.start(wait = true)
+}
 
+/*
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
@@ -47,4 +59,6 @@ fun Application.module(testing: Boolean = false) {
         }
     }
 }
+
+ */
 
